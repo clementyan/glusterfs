@@ -1547,7 +1547,7 @@ main (int argc, char *argv[])
         sprintf (writebuf, "hi there\n");
         ret = glfs_write (fd, writebuf, 32, 0);
 
-        glfs_lseek (fd2, 0, SEEK_SET);
+        //glfs_lseek (fd2, 0, SEEK_SET);
 
         ret = glfs_read (fd2, readbuf, 32, 0);
 
