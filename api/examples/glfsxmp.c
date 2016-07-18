@@ -6,6 +6,54 @@
 #include <string.h>
 #include <time.h>
 
+int
+test_rmall(glfs_t *fs,char removepath[4096])
+{
+        glfs_fd_t *fd = NULL;
+        char buf[512];
+        struct dirent *entry = NULL;
+        char respathbuf[4096];
+        int ret=-1;
+
+        fd = glfs_opendir (fs, removepath);
+        if (!fd) {
+                fprintf (stderr, "/: %s\n", strerror (errno));
+                return -1;
+        }
+
+        fprintf (stderr, "Entries:\n");
+        while (glfs_readdir_r (fd, (struct dirent *)buf, &entry), entry) {
+                fprintf (stderr, "%s: %lu\n", entry->d_name, glfs_telldir (fd));//
+                if(strcmp(entry->d_name,".")==0||strcmp(entry->d_name,"..")==0){
+                    //loc=glfs_telldir (fd);
+                    //glfs_lseek (fd, loc, SEEK_SET);
+                }else{
+                    strcpy (respathbuf,removepath);
+                    strcat(respathbuf,entry->d_name);
+                    ret = glfs_unlink (fs, respathbuf);
+                    if(ret != 0){
+                        fprintf (stderr, "unlink(%s): (%d) %s\n",respathbuf, ret,strerror (errno));
+                        ret = glfs_rmdir (fs, respathbuf);
+                        if (ret && errno != ENOENT) {
+                            fprintf (stderr, "glfs_rmdir: Failed for %s: %s\n",respathbuf, strerror (errno));
+                            strcat(respathbuf,"/");
+                            test_rmall(fs,respathbuf);
+                            ret = glfs_rmdir (fs, respathbuf);
+                            if (ret && errno != ENOENT) {
+                                fprintf (stderr, "glfs_rmdir: Failed for %s: %s\n",respathbuf, strerror (errno));
+                                //return -1;
+                            }else
+                                fprintf (stderr, "rmdir(%s): (%d) %s\n",respathbuf, ret,strerror (errno));
+                        }else{
+                            fprintf (stderr, "rmdir(%s): (%d) %s\n",respathbuf, ret,strerror (errno));
+                        }
+                    }else
+                        fprintf (stderr, "unlink(%s): (%d) %s\n",respathbuf, ret,strerror (errno));
+                }
+        }
+        glfs_closedir (fd);
+        return 0;
+}
 
 int
 test_dirops (glfs_t *fs)
@@ -1590,6 +1638,9 @@ main (int argc, char *argv[])
 
         test_handleops (argc, argv);
         // done
+
+        test_rmall(fs,"/");
+        //remove all file and directory in "/"
 
         glfs_fini (fs);
         glfs_fini (fs2);
