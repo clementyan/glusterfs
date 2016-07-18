@@ -291,6 +291,7 @@ xlator_set_type (xlator_t *xl, const char *type)
         int ret = 0;
 
         ret = xlator_set_type_virtual (xl, type);
+        //xl->type = gf_strdup (type);
         if (!ret)
                 ret = xlator_dynload (xl);
 
