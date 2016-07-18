@@ -65,7 +65,7 @@ int
 test_chdir (glfs_t *fs)
 {
         int ret = -1;
-        char *topdir = "/topdir";
+        char *topdir = "./topdir";
         char *linkdir = "/linkdir";
         char *subdir = "./subdir";
         char *respath = NULL;
