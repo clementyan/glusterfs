@@ -960,6 +960,9 @@ glfs_init_common (struct glfs *fs)
 	int  ret = -1;
 
 	ret = create_master (fs);
+    //setting translator
+    //init translator
+    
 	if (ret)
 		return ret;
 
