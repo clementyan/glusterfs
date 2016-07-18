@@ -103,3 +103,6 @@ xlators/experimental/fdl/src/libfdl.c
 xlators/experimental/fdl/src/librecon.c
 xlators/experimental/jbr-client/src/jbrc-cg.c
 xlators/experimental/jbr-server/src/jbr-cg.c
+
+#clementyan ignore file
+.tags*
