@@ -1575,7 +1575,8 @@ main (int argc, char *argv[])
 
 //      ret = glfs_set_volfile (fs2, "/tmp/posix.vol");
 
-        ret = glfs_set_volfile_server (fs2, "tcp", argv[2], 24007);
+//        ret = glfs_set_volfile_server (fs2, "tcp", argv[2], 24007);
+        ret = glfs_set_volfile_server (fs2, "tcp", "vm38", 24007);
 
         ret = glfs_set_logging (fs2, "/dev/stderr", 7);
 
