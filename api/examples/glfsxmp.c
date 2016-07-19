@@ -1639,7 +1639,7 @@ main (int argc, char *argv[])
         test_handleops (argc, argv);
         // done
 
-        test_rmall(fs,"/");
+//        test_rmall(fs,"/");
         //remove all file and directory in "/"
 
         glfs_fini (fs);
