@@ -1556,8 +1556,8 @@ main (int argc, char *argv[])
 
 //      ret = glfs_set_volfile (fs, "/tmp/posix.vol");
 
-//        ret = glfs_set_volfile_server (fs, "tcp", argv[2], 24007);
-        ret = glfs_set_volfile_server (fs, "tcp", "vm38", 24007);
+        ret = glfs_set_volfile_server (fs, "tcp", argv[2], 24007);
+//        ret = glfs_set_volfile_server (fs, "tcp", "vm38", 24007);
 
 //      ret = glfs_set_volfile_server (fs, "unix", "/tmp/gluster.sock", 0);
 
@@ -1591,7 +1591,7 @@ main (int argc, char *argv[])
         fd = glfs_creat (fs, vm1, O_RDWR, 0644);
         fprintf (stderr, "%s: (%p) %s\n", filename, fd, strerror (errno));
 
-        fd2 = glfs_creat (fs2, vm2, O_RDWR, 0644);
+        fd2 = glfs_creat (fs2, vm1, O_RDWR, 0644);
         fprintf (stderr, "%s: (%p) %s\n", filename, fd, strerror (errno));
 
         sprintf (writebuf, "This file is vm2 write by fd2\n");
