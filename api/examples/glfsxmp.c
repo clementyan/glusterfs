@@ -1557,7 +1557,7 @@ main (int argc, char *argv[])
 //      ret = glfs_set_volfile (fs, "/tmp/posix.vol");
 
 //        ret = glfs_set_volfile_server (fs, "tcp", argv[2], 24007);
-        ret = glfs_set_volfile_server (fs, "tcp", vm38, 24007);
+        ret = glfs_set_volfile_server (fs, "tcp", "vm38", 24007);
 
 //      ret = glfs_set_volfile_server (fs, "unix", "/tmp/gluster.sock", 0);
 
