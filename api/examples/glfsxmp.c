@@ -1540,6 +1540,8 @@ main (int argc, char *argv[])
         char       writebuf[32];
 
         char      *filename = "/filename2";
+        char      *vm1 = "/vm1";
+        char      *vm2 = "/vm2";
 
         if (argc != 3) {
                 printf ("Expect following args\n\t%s <volname> <hostname>\n", argv[0]);
@@ -1584,6 +1586,20 @@ main (int argc, char *argv[])
 
         fprintf (stderr, "glfs_init: returned %d\n", ret);
 
+
+        fd = glfs_creat (fs, vm1, O_RDWR, 0644);
+        fprintf (stderr, "%s: (%p) %s\n", filename, fd, strerror (errno));
+
+        fd2 = glfs_creat (fs2, vm2, O_RDWR, 0644);
+        fprintf (stderr, "%s: (%p) %s\n", filename, fd, strerror (errno));
+
+        sprintf (writebuf, "This file is vm2 write by fd2\n");
+        ret = glfs_write (fd2, writebuf, 32, 0);
+
+        sprintf (writebuf, "This file is vm1 write by fd\n");
+        ret = glfs_write (fd, writebuf, 32, 0);
+        /*
+
         ret = glfs_lstat (fs, filename, &sb);
         fprintf (stderr, "%s: (%d) %s\n", filename, ret, strerror (errno));
 
@@ -1601,6 +1617,7 @@ main (int argc, char *argv[])
         ret = glfs_read (fd2, readbuf, 32, 0);
 
         printf ("read %d, %s", ret, readbuf);
+        */
 
         glfs_close (fd);
         glfs_close (fd2);
