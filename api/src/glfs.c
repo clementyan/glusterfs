@@ -477,6 +477,8 @@ pub_glfs_set_volfile_server (struct glfs *fs, const char *transport,
         }
 
         list_add_tail (&server->list, &cmd_args->volfile_servers);
+        //prev->new->head
+        //add &server->list(new)
 
         ret = 0;
 out:
