@@ -551,7 +551,7 @@ init (xlator_t *this)
                 goto out;
         }
 
-	ret = afr_selfheal_daemon_init (this);
+	ret = afr_selfheal_daemon_init (this);//裡面有 new inode table
 	if (ret) {
 		ret = -ENOMEM;
 		goto out;

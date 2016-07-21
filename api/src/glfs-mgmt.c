@@ -74,7 +74,7 @@ glfs_process_volfp (struct glfs *fs, FILE *fp)
 		goto out;
 	}
 
-	ret = glusterfs_graph_activate (graph, ctx);
+	ret = glusterfs_graph_activate (graph, ctx);//裡面有new inode table
 
 	if (ret) {
 		glusterfs_graph_destroy (graph);
