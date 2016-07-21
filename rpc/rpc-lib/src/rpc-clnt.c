@@ -986,6 +986,7 @@ rpc_clnt_connection_init (struct rpc_clnt *clnt, glusterfs_ctx_t *ctx,
 
         ret = dict_get_int32 (options, "frame-timeout",
                               &conn->frame_timeout);
+        //查詢options的key:"frame-timeout" 對應的值存到&conn->frame_timeout
         if (ret >= 0) {
                 gf_log (name, GF_LOG_INFO,
                         "setting frame-timeout to %d", conn->frame_timeout);

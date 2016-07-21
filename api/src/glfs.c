@@ -279,7 +279,7 @@ glfs_volumes_init (struct glfs *fs)
 		goto out;
 	}
 
-	ret = glfs_process_volfp (fs, fp);
+	ret = glfs_process_volfp (fs, fp);//裡面有inode table new
 	if (ret)
 		goto out;
 
