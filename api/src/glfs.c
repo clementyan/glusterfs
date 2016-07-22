@@ -741,18 +741,18 @@ pub_glfs_new (const char *volname)
 
         /* first globals init, for gf_mem_acct_enable_set () */
 
-        ret = glusterfs_globals_init (ctx);
+        ret = glusterfs_globals_init (ctx);//fs 的 ctx init
         if (ret)
                 goto fini;
 
         old_THIS = THIS;
-        ret = glfs_init_global_ctx ();
+        ret = glfs_init_global_ctx ();//xlator 的 ctx init
         if (ret)
                 goto fini;
 
         /* then ctx_defaults_init, for xlator_mem_acct_init(THIS) */
 
-        ret = glusterfs_ctx_defaults_init (ctx);
+        ret = glusterfs_ctx_defaults_init (ctx);//ctx 裡面一些data init memory space
         if (ret)
                 goto fini;
 
