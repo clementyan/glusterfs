@@ -2799,7 +2799,7 @@ pub_glfs_readdirplus_r (struct glfs_fd *glfd, struct stat *stat,
 	}
 
 	if (entry) {
-		gf_dirent_to_dirent (entry, buf);
+		gf_dirent_to_dirent (entry, buf);//buf的資料會等於entry的資料
 		if (stat)
 			glfs_iatt_to_stat (glfd->fs, &entry->d_stat, stat);
 	}
