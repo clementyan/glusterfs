@@ -525,6 +525,7 @@ xlator_mem_acct_init (xlator_t *xl, int num_types)
                 return -1;
         }
         memset (xl->mem_acct, 0, sizeof(struct mem_acct));
+        //memset - fill memory with a constant byte
 
         xl->mem_acct->num_types = num_types;
         LOCK_INIT (&xl->mem_acct->lock);

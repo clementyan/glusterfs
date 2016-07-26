@@ -436,6 +436,8 @@ glusterfs_globals_init (glusterfs_ctx_t *ctx)
         int ret = 0;
 
         gf_log_globals_init (ctx, GF_LOG_INFO);
+        //設定ctx->log.loglevel=GF_LOG_INFO
+        //並設定其他log.xxx初始的值
 
         ret =  pthread_once (&globals_inited, gf_globals_init_once);
 

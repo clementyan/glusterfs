@@ -641,7 +641,7 @@ glfs_poller (void *data)
 static struct glfs *
 glfs_new_fs (const char *volname)
 {
-        struct glfs     *fs             = NULL;
+        struct glfs     *fs= NULL;
 
         fs = CALLOC (1, sizeof (*fs));
         if (!fs)
@@ -697,11 +697,14 @@ glfs_init_global_ctx ()
                 }
 
                 gf_log_globals_init (ctx, GF_LOG_NONE);
+                //設定ctx->log.loglevel=GF_LOG_NONE
+                //並設定其他log.xxx初始的值
 
                 global_ctx = ctx;
                 global_xlator.ctx = global_ctx;
 
                 ret = glusterfs_ctx_defaults_init (ctx);
+                //ctx內的資料new memory space
                 if (ret) {
                         global_ctx = NULL;
                         global_xlator.ctx = NULL;
@@ -732,27 +735,41 @@ pub_glfs_new (const char *volname)
         }
 
         fs = glfs_new_fs (volname);
+        //new 出 fs memory space
+        //設定fs->volname
         if (!fs)
                 return NULL;
 
         ctx = glusterfs_ctx_new ();
+        //new 出ctx memory space
         if (!ctx)
                 goto fini;
 
         /* first globals init, for gf_mem_acct_enable_set () */
 
-        ret = glusterfs_globals_init (ctx);//fs 的 ctx init
+        ret = glusterfs_globals_init (ctx);
+        //fs 的 ctx init
+        //gf_log_globals_init (ctx, GF_LOG_INFO);
+        //設定ctx->log.xxxx的初始值
+        //ctx->log.loglevel=GF_LOG_INFO
         if (ret)
                 goto fini;
 
-        old_THIS = THIS;
-        ret = glfs_init_global_ctx ();//xlator 的 ctx init
+        old_THIS = THIS;//*****
+        ret = glfs_init_global_ctx ();//*****
+        //xlator 的 ctx init
+        //gf_log_globals_init (ctx, GF_LOG_NONE);
+        ////設定ctx->log.loglevel=GF_LOG_NONE
+        //並設定其他log.xxx初始的值
+        //裡面有glusterfs_ctx_defaults_init (ctx)
         if (ret)
                 goto fini;
 
         /* then ctx_defaults_init, for xlator_mem_acct_init(THIS) */
 
-        ret = glusterfs_ctx_defaults_init (ctx);//ctx 裡面一些data init memory space
+        ret = glusterfs_ctx_defaults_init (ctx);
+        // new 出 THIS 裡面參數的memory space (xlator)
+        //ctx 裡面一些data init memory space
         if (ret)
                 goto fini;
 

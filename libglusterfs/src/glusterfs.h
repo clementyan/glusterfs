@@ -453,7 +453,7 @@ struct _glusterfs_ctx {
 
         struct list_head    mempool_list; /* used to keep a global list of
                                              mempools, used to log details of
-                                             mempool in statedump */
+                                             mempool in statedump *///*************
         char               *statedump_path;
 
         struct mem_pool    *dict_pool;
@@ -479,7 +479,7 @@ struct _glusterfs_ctx {
          * any sense, but it's not worth turning the codebase upside-down to
          * fix it.  Thus, an int.
          */
-        int                 secure_mgmt;
+        int                 secure_mgmt;//****
 
         /*
          * Should *our* server/inbound connections use SSL?  This is only true
@@ -487,7 +487,7 @@ struct _glusterfs_ctx {
          * and SSL is set on the I/O path.  It should never be set e.g. for
          * NFS.
          */
-        mgmt_ssl_t          secure_srvr;
+        mgmt_ssl_t          secure_srvr;//******
         /* Buffer to 'save' backtrace even under OOM-kill like situations*/
         char btbuf[GF_BACKTRACE_LEN];
 
