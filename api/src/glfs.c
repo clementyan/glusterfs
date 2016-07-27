@@ -97,7 +97,7 @@ glusterfs_ctx_defaults_init (glusterfs_ctx_t *ctx)
 		goto err;
 	}
 
-	ctx->env = syncenv_new (0, 0, 0);
+	ctx->env = syncenv_new (0, 0, 0);//create thread
 	if (!ctx->env) {
 		goto err;
 	}
@@ -202,7 +202,7 @@ create_master (struct glfs *fs)
 
 	master->ctx	 = fs->ctx;
 	master->private	 = fs;
-	master->options	 = get_new_dict ();
+	master->options	 = get_new_dict ();//new 出 dict 的 data structure
 	if (!master->options)
 		goto err;
 
@@ -768,7 +768,7 @@ pub_glfs_new (const char *volname)
         /* then ctx_defaults_init, for xlator_mem_acct_init(THIS) */
 
         ret = glusterfs_ctx_defaults_init (ctx);
-        // new 出 THIS 裡面參數的memory space (xlator)
+        // new 出 THIS 裡面參數的memory space 
         //ctx 裡面一些data init memory space
         if (ret)
                 goto fini;
@@ -776,6 +776,7 @@ pub_glfs_new (const char *volname)
         fs->ctx = ctx;
 
         ret = glfs_set_logging (fs, "/dev/null", 0);
+        //設定fs->ctx loglevel
         if (ret)
                 goto fini;
 
