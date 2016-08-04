@@ -762,6 +762,7 @@ pub_glfs_new (const char *volname)
         ////設定ctx->log.loglevel=GF_LOG_NONE
         //並設定其他log.xxx初始的值
         //裡面有glusterfs_ctx_defaults_init (ctx)
+        //設定process id到ctx
         if (ret)
                 goto fini;
 
@@ -770,6 +771,7 @@ pub_glfs_new (const char *volname)
         ret = glusterfs_ctx_defaults_init (ctx);
         // new 出 THIS 裡面參數的memory space 
         //ctx 裡面一些data init memory space
+        //設定process id到ctx
         if (ret)
                 goto fini;
 

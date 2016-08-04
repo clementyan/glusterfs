@@ -518,9 +518,9 @@ static int
 event_dispatch_epoll_handler (struct event_pool *event_pool,
                               struct epoll_event *event)
 {
-        struct event_data  *ev_data = NULL;
+    struct event_data  *ev_data = NULL;
 	struct event_slot_epoll *slot = NULL;
-        event_handler_t     handler = NULL;
+    event_handler_t     handler = NULL;
         void               *data = NULL;
         int                 idx = -1;
 	int                 gen = -1;
@@ -613,7 +613,7 @@ event_dispatch_epoll_worker (void *data)
         struct epoll_event  event;
         int                 ret = -1;
         struct event_thread_data *ev_data = data;
-	struct event_pool  *event_pool;
+		struct event_pool  *event_pool;
         int                 myindex = -1;
         int                 timetodie = 0;
 
