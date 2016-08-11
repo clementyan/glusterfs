@@ -242,7 +242,7 @@ glusterfs_graph_gfid_access (glusterfs_graph_t *graph, glusterfs_ctx_t *ctx)
                                       "gfid-access-autoload", 1);
         return ret;
 }
-
+//cmd line option add to translator's options
 static void
 gf_add_cmdline_options (glusterfs_graph_t *graph, cmd_args_t *cmd_args)
 {
@@ -651,7 +651,7 @@ glusterfs_graph_activate (glusterfs_graph_t *graph, glusterfs_ctx_t *ctx)
         int ret = 0;
         xlator_t *root = NULL;
 
-        root = glusterfs_root(graph);
+        root = glusterfs_root(graph);//?
 
         graph->leaf_count = glusterfs_count_leaves(root);
 

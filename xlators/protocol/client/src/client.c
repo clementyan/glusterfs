@@ -2710,7 +2710,7 @@ init (xlator_t *this)
         /* Set event threads to the configured default */
         GF_OPTION_INIT("event-threads", conf->event_threads, int32, out);
         ret = client_check_event_threads (this, conf, STARTING_EVENT_THREADS,
-                                          conf->event_threads);
+                                          conf->event_threads);//creat thread
         if (ret)
                 goto out;
 

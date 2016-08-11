@@ -37,7 +37,7 @@ gf_timer_call_after (glusterfs_ctx_t *ctx,
                 return NULL;
         }
 
-        reg = gf_timer_registry_init (ctx);
+        reg = gf_timer_registry_init (ctx);//create thread
 
         if (!reg) {
                 gf_msg_callingfn ("timer", GF_LOG_ERROR, 0,

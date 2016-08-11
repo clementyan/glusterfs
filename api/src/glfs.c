@@ -752,17 +752,19 @@ pub_glfs_new (const char *volname)
         //gf_log_globals_init (ctx, GF_LOG_INFO);
         //設定ctx->log.xxxx的初始值
         //ctx->log.loglevel=GF_LOG_INFO
+        //create pthread key rutine
         if (ret)
                 goto fini;
 
         old_THIS = THIS;//*****
         ret = glfs_init_global_ctx ();//*****
-        //xlator 的 ctx init
+        //gobal xlator 的 ctx new, init
         //gf_log_globals_init (ctx, GF_LOG_NONE);
         ////設定ctx->log.loglevel=GF_LOG_NONE
         //並設定其他log.xxx初始的值
         //裡面有glusterfs_ctx_defaults_init (ctx)
         //設定process id到ctx
+        //create thread *2
         if (ret)
                 goto fini;
 
@@ -772,6 +774,7 @@ pub_glfs_new (const char *volname)
         // new 出 THIS 裡面參數的memory space 
         //ctx 裡面一些data init memory space
         //設定process id到ctx
+        //create thread *2
         if (ret)
                 goto fini;
 
@@ -779,6 +782,7 @@ pub_glfs_new (const char *volname)
 
         ret = glfs_set_logging (fs, "/dev/null", 0);
         //設定fs->ctx loglevel
+        //create thread *1
         if (ret)
                 goto fini;
 
@@ -907,7 +911,7 @@ pub_glfs_set_logging (struct glfs *fs, const char *logfile, int loglevel)
         if (ret)
                 goto out;
 
-        ret = gf_log_inject_timer_event (fs->ctx);
+        ret = gf_log_inject_timer_event (fs->ctx);//create thread
         if (ret)
                 goto out;
 

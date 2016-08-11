@@ -678,7 +678,6 @@ out:
                 GF_FREE (ev_data);
         return NULL;
 }
-
 /* Attempts to start the # of configured pollers, ensuring at least the first
  * is started in a joinable state */
 static int
@@ -693,6 +692,7 @@ event_dispatch_epoll (struct event_pool *event_pool)
         /* Start the configured number of pollers */
         pthread_mutex_lock (&event_pool->mutex);
         {
+
                 pollercount = event_pool->eventthreadcount;
 
                 /* Set to MAX if greater */
@@ -708,7 +708,7 @@ event_dispatch_epoll (struct event_pool *event_pool)
                 for (i = 0; i < pollercount; i++) {
                         ev_data = GF_CALLOC (1, sizeof (*ev_data),
                                      gf_common_mt_event_pool);
-                        if (!ev_data) {
+                        if (!ev_data) {//xx
                                 if (i == 0) {
                                         /* Need to suceed creating 0'th
                                          * thread, to joinable and wait */
@@ -726,9 +726,9 @@ event_dispatch_epoll (struct event_pool *event_pool)
                         ret = pthread_create (&t_id, NULL,
                                               event_dispatch_epoll_worker,
                                               ev_data);
-                        if (!ret) {
+                        if (!ret) {//OO
                                 event_pool->pollers[i] = t_id;
-
+                                
                                 /* mark all threads other than one in index 0
                                  * as detachable. Errors can be ignored, they
                                  * spend their time as zombies if not detched

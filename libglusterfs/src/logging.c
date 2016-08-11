@@ -1791,7 +1791,7 @@ __gf_log_inject_timer_event (glusterfs_ctx_t *ctx)
                  ctx->log.timeout, ctx->log.lru_size);
         ctx->log.log_flush_timer = gf_timer_call_after (ctx, timeout,
                                                       gf_log_flush_timeout_cbk,
-                                                        (void *)ctx);
+                                                        (void *)ctx);//create thread
         if (!ctx->log.log_flush_timer)
                 goto out;
 
