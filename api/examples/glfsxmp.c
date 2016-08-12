@@ -6,6 +6,46 @@
 #include <string.h>
 #include <time.h>
 
+void
+print_entry_xlator_option (glusterfs_graph_t *graph, cmd_args_t *cmd_args)
+{
+        int                      ret = 0;
+        xlator_t                *trav = NULL;
+        xlator_cmdline_option_t *cmd_option = NULL;
+
+        trav = graph->first;
+
+        while (trav) {
+                list_for_each_entry (cmd_option,
+                                     &cmd_args->xlator_options, cmd_args) {
+                        if (!fnmatch (cmd_option->volume,
+                                      trav->name, FNM_NOESCAPE)) {
+                                fprintf (stderr, "trav:%s\n",trav->name);
+                                fprintf (stderr, "option key:%s\n",cmd_option->key);
+                                fprintf (stderr, "option value:%s\n",cmd_option->value);
+                                // ret = dict_set_str (trav->options,
+                                //                     cmd_option->key,
+                                //                     cmd_option->value);
+                                // if (ret == 0) {
+                                //         gf_msg (trav->name, GF_LOG_INFO, 0,
+                                //                 LG_MSG_VOL_OPTION_ADD,
+                                //                 "adding option '%s' for "
+                                //                 "volume '%s' with value '%s'",
+                                //                 cmd_option->key, trav->name,
+                                //                 cmd_option->value);
+                                // } else {
+                                //         gf_msg (trav->name, GF_LOG_WARNING,
+                                //                 -ret, LG_MSG_VOL_OPTION_ADD,
+                                //                 "adding option '%s' for "
+                                //                 "volume '%s' failed",
+                                //                 cmd_option->key, trav->name);
+                                // }
+                        }
+                }
+                trav = trav->next;
+        }
+}
+
 int
 test_rmall(glfs_t *fs,char removepath[4096])
 {
@@ -1567,6 +1607,8 @@ main (int argc, char *argv[])
         ret = glfs_init (fs);
 
         fprintf (stderr, "glfs_init: returned %d\n", ret);
+
+        print_entry_xlator_option(fs->ctx->graph,fs->ctx->cmd_args);
 
         sleep (2);
 
